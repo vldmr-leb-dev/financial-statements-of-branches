@@ -84,16 +84,16 @@ async function post_result(dp_filial_post: any) {
   let cathegory: number[] = [];
 
   let result_post_text: Iresult_post_text = {
-    "Отчет за месяц": month_all[month_spent_ccy],
-    "Расход по всем филиалам в базовой валюте": all_spent + ' ' + filial[0][2],
-    "Расход общий по всем филиалам в базовой валюте": total_all_filial + ' ' + filial[0][2],
+    "Monthly report": month_all[month_spent_ccy],
+    "Report from all filial in base ccy": all_spent + ' ' + filial[0][2],
+    "Total spent from all filial in base ccy": total_all_filial + ' ' + filial[0][2],
   };
 
   for (let i = 0; i < filial.length; i++) {
-    result_post_text['Отчет по филиалу ' + filial[i][0]] = filial[i][0];
-    result_post_text['Плановый бюджет филиала ' + filial[i][0]] = Number(total_all_filial / filial.length).toFixed(0);
-    result_post_text['Израсходовано филиалом ' + filial[i][0]] = Number(all_spent[i]).toFixed(0);
-    result_post_text['Эконом эффект филиала ' + filial[i][0]] = Number(total_all_filial / filial.length - all_spent[i]).toFixed(0);
+    result_post_text['Report from filial ' + filial[i][0]] = filial[i][0];
+    result_post_text['Planned spent from filial ' + filial[i][0]] = Number(total_all_filial / filial.length).toFixed(0);
+    result_post_text['Real spent from filial ' + filial[i][0]] = Number(all_spent[i]).toFixed(0);
+    result_post_text['Result spent from filial ' + filial[i][0]] = Number(total_all_filial / filial.length - all_spent[i]).toFixed(0);
 
     for (let i = 0; i < cathegory_spent + 1; i++) {
       cathegory[i] = 0;
@@ -105,15 +105,14 @@ async function post_result(dp_filial_post: any) {
       }
     }
 
-    result_post_text['Oтчет по категориям для филиала ' + filial[i][0]] = filial[i][0];
+    result_post_text['Report by cathegory from filial ' + filial[i][0]] = filial[i][0];
 
     for (let y = 0; y < cathegory.length; y++) {
-      result_post_text['Филиал ' + filial[i][0] + '. Категория расхода ' + y] = Number(cathegory[y]).toFixed(0);
+      result_post_text['Filial ' + filial[i][0] + '. Cathegory spent ' + y] = Number(cathegory[y]).toFixed(0);
     }
   }
 
   // res.status(200).send({"message": "rez"})
-  // console.log(itogText);
   return result_post_text;
 }
 
